@@ -1,2 +1,2 @@
-# fpnn
-Functional Programming Neural Network example
+# fpnnc
+Functional Programming Neural Network Calibration use case
