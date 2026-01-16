@@ -101,14 +101,6 @@ def calculate_ece(buckets: list[Bin]) -> float:
     return sum(weighted_errors)
 
 
-def sq_conf_diff(bucket: Bin) -> float:
-    """Calculate the squared difference between accuracy and confidence for a bin.
-    
-    This is the core mathematical component for RMSCE.
-    """
-    return (bucket.acc - bucket.conf) ** 2
-
-
 def calculate_rmsce(buckets: list[Bin]) -> float:
     """Calculate the Root Mean Square Calibration Error (RMSCE).
 
