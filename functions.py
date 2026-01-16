@@ -1,4 +1,22 @@
-"""Functions for stuff"""
+"""Calibration metrics for evaluating machine learning model confidence.
+
+This module provides functions and utilities for calculating various calibration
+metrics that assess how well a model's predicted confidence aligns with its actual
+accuracy. Calibration is critical for deploying ML models in high-stakes applications
+where uncertainty quantification matters.
+
+The module includes implementations of:
+    - ECE (Expected Calibration Error): Weighted average of calibration errors
+    - MCE (Maximum Calibration Error): Worst-case calibration error across bins
+    - RMSCE (Root Mean Square Calibration Error): Quadratic calibration metric
+    - NLL (Negative Log-Likelihood): Probabilistic calibration quality measure
+
+Typical usage example:
+    bins = [Bin(acc=0.9, conf=0.85, size=100), ...]
+    ece = calculate_ece(bins)
+    mce = calculate_mce(bins)
+    rmsce = calculate_rmsce(bins)
+"""
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Callable
@@ -126,8 +144,8 @@ def calculate_rmsce(buckets: list[Bin]) -> float:
         ZeroDivisionError: If the input bucket list is empty.
     """
     weight_func = bin_weight(buckets)
-    def weighted_sq_error(b):
-        return weight_func(b) * (abs_conf_diff(b) ** 2)
+    def weighted_sq_error(bucket):
+        return weight_func(bucket) * (abs_conf_diff(bucket) ** 2)
     return math.sqrt(sum(map(weighted_sq_error, buckets)))
 
 
@@ -157,12 +175,12 @@ def calculate_nll(buckets: list[Bin]) -> float:
     )
     return nll_sum / total_size
 
-# --- Testing with your BINS data ---
-rmsce_error = calculate_rmsce(BINS)
-ece_error = calculate_ece(BINS)
-nll_error = calculate_nll(BINS)
-mce_error = calculate_mce(BINS)
-print(f"RMSCE: {rmsce_error:.8f}\n"
-      f"ECE  : {ece_error:.8f}\n"
-      f"NLL  : {nll_error:.8f}\n"
-      f"MCE  : {mce_error:.8f}\n")
+if __name__ == "__main__":
+    rmsce_error = calculate_rmsce(BINS)
+    ece_error = calculate_ece(BINS)
+    nll_error = calculate_nll(BINS)
+    mce_error = calculate_mce(BINS)
+    print(f"RMSCE: {rmsce_error:.8f}\n"
+        f"ECE  : {ece_error:.8f}\n"
+        f"NLL  : {nll_error:.8f}\n"
+        f"MCE  : {mce_error:.8f}\n")
