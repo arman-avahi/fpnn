@@ -40,6 +40,7 @@ class Bin:
     conf: float
     size: int
 
+# example bin data
 BINS: list[Bin] = [
     Bin(acc=0.00909378, conf=0.0059244, size=85553),
     Bin(acc=0.17035775, conf=0.14248397, size=2348),
@@ -123,7 +124,7 @@ def calculate_ece(buckets: list[Bin]) -> float:
     ECE is a weighted average of the absolute differences between accuracy and confidence
     across all bins, where weights are based on the number of samples in each bin.
 
-    ECE = Σₘ (|Bₘ| / N) · |accₘ − confₘ|
+    ECE = Σₘ (|Bₘ| / N) · |accₘ - confₘ|
     
     Acceptance criteria:
         1. Determinism - the same buckets yield the same ECE.
@@ -158,7 +159,7 @@ def calculate_rmsce(buckets: list[Bin]) -> float:
     heavily than ECE.
     The formula for RMSCE is:
 
-    RMSCE = √( Σₘ (|Bₘ| / N) · (accₘ − confₘ)² )
+    RMSCE = √( Σₘ (|Bₘ| / N) · (accₘ - confₘ)² )
 
     Where:
         - |Bi| is the number of samples in bin i.

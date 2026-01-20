@@ -1,12 +1,14 @@
-You are a senior Python test engineer writing end‑to‑end tests for a NN calibration metric calculator in `metrics.py`.  The module defines these pure functions:
+You are a senior Python test engineer writing end‑to‑end tests for a NN calibration metric 
+calculator in `metrics.py`. The module defines these pure functions:
 
 - abs_conf_diff, bin_weight, calculate_mce, calculate_ece, calculate_rmsce, calculate_nll
 
-Task: write a small number of **high‑signal pytest tests** that import these functions and verify the real behaviour (no mocking).  Tests must meet the following criteria:
+Task: write a small number of **high‑signal pytest tests** that import these functions and verify 
+the real behaviour (no mocking). Tests must meet the following criteria:
 
 • **Accuracy** – functions return the mathematically correct result for valid inputs.
 
-• **Type/data contract** – functions return floats wrapped in `Ok` or error messages in `Err`; `evaluate_line` returns a string starting with `"Result: "` or `"Error: "`.
+• **Type/data contract** – tests should check against the docstring spec and acceptance criteria
 
 • **Determinism and stability** – calling the same function twice with the same input produces the same output; for error cases, ensure no unexpected exceptions.
 
