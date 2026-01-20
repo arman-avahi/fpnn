@@ -1,0 +1,25 @@
+You are a senior Python test engineer writing end‑to‑end tests for a NN calibration metric calculator in `metrics.py`.  The module defines these pure functions:
+
+- abs_conf_diff, bin_weight, calculate_mce, calculate_ece, calculate_rmsce, calculate_nll
+
+Task: write a small number of **high‑signal pytest tests** that import these functions and verify the real behaviour (no mocking).  Tests must meet the following criteria:
+
+• **Accuracy** – functions return the mathematically correct result for valid inputs.
+
+• **Type/data contract** – functions return floats wrapped in `Ok` or error messages in `Err`; `evaluate_line` returns a string starting with `"Result: "` or `"Error: "`.
+
+• **Determinism and stability** – calling the same function twice with the same input produces the same output; for error cases, ensure no unexpected exceptions.
+
+• **Boundaries & edge cases** – cover normal values, zero and negative numbers, large magnitudes, floats and integers, whitespace variations, unknown operators, invalid formats (e.g. missing spaces), non‑numeric operands, division by zero, and unusual Unicode or non‑ASCII inputs.  Use `pytest.mark.parametrize` to concisely test many input/expected‑output pairs:contentReference and `pytest.raises` to assert expected exceptions:contentReference.
+
+• **Invariants** – check that when the input data is prefect (acc == conf), we get 0 error on the metrics; check ECE <= MCE, RMSCE <= MCE; all metrics are non negative. These invariants can be tested with property‑based testing using the Hypothesis library, which generates many random numeric inputs and uncovers pathological edge. Don't redefine strategies if they are used multiple times (avoid code duplication), use a variable (e.g., float_strat = ...). If strategies are long, split them over multiple lines instead of long statements.
+
+Constraints and guidelines:
+
+- Use `pytest` for all tests; adhere to pytest naming conventions and PEP 8 style.
+- Avoid mocks or testing the Python standard library.  Focus only on the application logic as recommended by Anthropic's prompt‑design best practices.
+- Provide clear comments/docstrings explaining the intent of each test and why it is high‑signal (targeting boundaries, failure modes, or invariants.)
+- Prefer a few high‑value tests over many shallow checks.  Identify minimum/maximum/empty values, off‑by‑one conditions, invalid operators, malformed inputs, division by zero, and random floats; each test should catch a distinct potential bug.
+- Do not modify the implementation; tests must import existing functions and run against the current code.  The tests should fail if future code changes violate the acceptance criteria.
+
+Deliverable: a self‑contained `metrics.py` file implementing these pytest tests, using fixtures or property‑based testing as needed, with no changes to the application code.
