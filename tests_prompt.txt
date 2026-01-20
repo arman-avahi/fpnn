@@ -1,10 +1,8 @@
-You are a senior Python test engineer writing end‑to‑end tests for a NN calibration metric 
-calculator in `metrics.py`. The module defines these pure functions:
+You are a senior Python test engineer writing end‑to‑end tests for a NN calibration metric calculator in `metrics.py`. The module defines these pure functions:
 
 - abs_conf_diff, bin_weight, calculate_mce, calculate_ece, calculate_rmsce, calculate_nll
 
-Task: write a small number of **high‑signal pytest tests** that import these functions and verify 
-the real behaviour (no mocking). Tests must meet the following criteria:
+Task: write a small number of **high‑signal pytest tests** that import these functions and verify the real behaviour (no mocking). Tests must meet the following criteria:
 
 • **Accuracy** – functions return the mathematically correct result for valid inputs.
 
@@ -12,7 +10,7 @@ the real behaviour (no mocking). Tests must meet the following criteria:
 
 • **Determinism and stability** – calling the same function twice with the same input produces the same output; for error cases, ensure no unexpected exceptions.
 
-• **Boundaries & edge cases** – cover normal values, zero and negative numbers, large magnitudes, floats and integers, whitespace variations, unknown operators, invalid formats (e.g. missing spaces), non‑numeric operands, division by zero, and unusual Unicode or non‑ASCII inputs.  Use `pytest.mark.parametrize` to concisely test many input/expected‑output pairs:contentReference and `pytest.raises` to assert expected exceptions:contentReference.
+• **Boundaries & edge cases** – cover normal bin lists, empty lists, single bins, bins with zero size, negative values, values outside valid ranges (e.g. probabilities outside [0,1]), extreme values near boundaries, very large magnitudes, floating-point precision issues, perfect calibration (acc=conf), maximum divergence cases, and division by zero scenarios. Use pytest.mark.parametrize to concisely test many input/expected‑output pairs and pytest.raises to assert expected exceptions.
 
 • **Invariants** – check that when the input data is prefect (acc == conf), we get 0 error on the metrics; check ECE <= MCE, RMSCE <= MCE; all metrics are non negative. These invariants can be tested with property‑based testing using the Hypothesis library, which generates many random numeric inputs and uncovers pathological edge. Don't redefine strategies if they are used multiple times (avoid code duplication), use a variable (e.g., float_strat = ...). If strategies are long, split them over multiple lines instead of long statements.
 
