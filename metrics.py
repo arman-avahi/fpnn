@@ -40,20 +40,6 @@ class Bin:
     conf: float
     size: int
 
-# example bin data
-BINS: list[Bin] = [
-    Bin(acc=0.00909378, conf=0.0059244, size=85553),
-    Bin(acc=0.17035775, conf=0.14248397, size=2348),
-    Bin(acc=0.2745098, conf=0.24646743, size=1275),
-    Bin(acc=0.34451902, conf=0.34819741, size=894),
-    Bin(acc=0.41820768, conf=0.44746627, size=703),
-    Bin(acc=0.54585799, conf=0.55071687, size=676),
-    Bin(acc=0.5862069, conf=0.65021489, size=696),
-    Bin(acc=0.68848168, conf=0.74971831, size=764),
-    Bin(acc=0.78737233, conf=0.85490657, size=1077),
-    Bin(acc=0.95084153, conf=0.98102668, size=6001),
-]
-
 def abs_conf_diff(bucket: Bin) -> float:
     """Calculate the absolute difference between accuracy and confidence for a bin.
 
@@ -227,13 +213,3 @@ def calculate_nll(buckets: list[Bin]) -> float:
         for b in non_empty
     )
     return nll_sum / total_size
-
-if __name__ == "__main__":
-    nll_error = calculate_nll(BINS)
-    rmsce_error = calculate_rmsce(BINS)
-    ece_error = calculate_ece(BINS)
-    mce_error = calculate_mce(BINS)
-    print(f"RMSCE: {rmsce_error:.8f}\n"
-        f"ECE  : {ece_error:.8f}\n"
-        f"NLL  : {nll_error:.8f}\n"
-        f"MCE  : {mce_error:.8f}\n")

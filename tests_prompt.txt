@@ -12,7 +12,7 @@ Task: write a small number of **high‑signal pytest tests** that import these f
 
 • **Boundaries & edge cases** – cover normal bin lists, empty lists, single bins, bins with zero size, negative values, values outside valid ranges (e.g. probabilities outside [0,1]), extreme values near boundaries, very large magnitudes, floating-point precision issues, perfect calibration (acc=conf), maximum divergence cases, and division by zero scenarios. Use pytest.mark.parametrize to concisely test many input/expected‑output pairs and pytest.raises to assert expected exceptions.
 
-• **Invariants** – check that when the input data is prefect (acc == conf), we get 0 error on the metrics; check ECE <= MCE, RMSCE <= MCE; all metrics are non negative. These invariants can be tested with property‑based testing using the Hypothesis library, which generates many random numeric inputs and uncovers pathological edge. Don't redefine strategies if they are used multiple times (avoid code duplication), use a variable (e.g., float_strat = ...). If strategies are long, split them over multiple lines instead of long statements.
+• **Invariants** – check that when the input data is prefect (acc == conf), we get 0 error on the metrics; check ECE <= MCE, RMSCE <= MCE; all metrics are non negative. These invariants can be tested with property‑based testing using the Hypothesis library, which generates many random numeric inputs and uncovers pathological edge. Don't redefine strategies if they are used multiple times (avoid code duplication), use a variable (e.g., float_strat = ...). If strategies are long, split them over multiple lines instead of long statements. Only use the @given property, nothing else like @composite.
 
 Constraints and guidelines:
 
@@ -22,4 +22,4 @@ Constraints and guidelines:
 - Prefer a few high‑value tests over many shallow checks.  Identify minimum/maximum/empty values, off‑by‑one conditions, invalid operators, malformed inputs, division by zero, and random floats; each test should catch a distinct potential bug.
 - Do not modify the implementation; tests must import existing functions and run against the current code.  The tests should fail if future code changes violate the acceptance criteria.
 
-Deliverable: a self‑contained `metrics.py` file implementing these pytest tests, using fixtures or property‑based testing as needed, with no changes to the application code.
+Deliverable: a self‑contained `test_metrics.py` file implementing these pytest tests, using fixtures or property‑based testing as needed, with no changes to the application code.
