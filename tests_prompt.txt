@@ -22,4 +22,4 @@ Constraints and guidelines:
 - Prefer a few high‑value tests over many shallow checks.  Identify minimum/maximum/empty values, off‑by‑one conditions, invalid operators, malformed inputs, division by zero, and random floats; each test should catch a distinct potential bug.
 - Do not modify the implementation; tests must import existing functions and run against the current code.  The tests should fail if future code changes violate the acceptance criteria.
 
-Deliverable: a self‑contained `test_metrics.py` file implementing these pytest tests, using fixtures or property‑based testing as needed, with no changes to the application code.
+Deliverable: a self‑contained `test_metrics.py` file implementing these pytest tests, using fixtures or property‑based testing as needed, with no changes to the application code. Do not report any bugs, if there are any, I will run the tests and ask u fix it after.
